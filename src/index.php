@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login</title>
+    <title>Parcelize</title>
     <?php require_once('includes/head.inc.php'); ?>
     <script src="scripts/firebaseInit.js"></script>
-    <script src="scripts/auth.js"></script>
+    <?php require_once('includes/navbar.inc.php'); ?>
 </head>
 <body>
 
-<div id="auth-container"></div>
-<div id="loading">Loading...</div>
 
 </body>
 </html>

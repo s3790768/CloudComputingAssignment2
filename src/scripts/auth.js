@@ -16,10 +16,19 @@ var uiConfig = {
         }
     },
     signInFlow: 'popup',
-    signInSuccessUrl: 'https://google.com',
+    signInSuccessUrl: 'index.php',
     signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.EmailAuthProvider.PROVIDER_ID
     ]
 };
 auth.start('#auth-container', uiConfig);
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        var displayName = user.displayName;
+        document.getElementById('userName').textContent = 'Hello ' + displayName;
+    }
+}, function(error) {
+    console.log(error);
+});
