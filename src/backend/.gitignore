@@ -1,6 +1,6 @@
 .idea/*
 *.class
-
+target/*
 
 # OS-specific files
 .DS_Store
