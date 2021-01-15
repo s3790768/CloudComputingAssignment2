@@ -1,3 +1,4 @@
+import controllers.CollectParcel;
 import controllers.CreateNewParcel;
 import controllers.GetParcel;
 import controllers.GetUserParcel;
@@ -20,6 +21,7 @@ public class App {
 
     public static void configureRoutes(Javalin app) {
         app.get("/id/:id", new GetParcel());
+        app.post("/id/:id", new CollectParcel());
         app.get("/user/:id", new GetUserParcel());
         app.post("/create", new CreateNewParcel());
     }

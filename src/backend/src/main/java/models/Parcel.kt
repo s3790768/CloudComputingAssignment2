@@ -5,5 +5,7 @@ data class Parcel(
     val pickUpLocation: String = "",
     val dropOffLocation: String = "",
     val time: String = "",
-    val isAccepted: Boolean = false
+    val isAccepted: Boolean = false,
+    val driverId: String = "",
+    val isDelivered: Boolean = false
 )

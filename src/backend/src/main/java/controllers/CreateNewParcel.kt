@@ -20,7 +20,7 @@ class CreateNewParcel: Handler {
             val firebaseAuth = FirebaseAuth.getInstance()
             try {
                 firebaseAuth.getUser(uid)
-                docRef.document().create(Parcel(uid, pickupAddress, dropOffAddress, time))
+                docRef.document().create(Parcel(uid, pickupAddress, dropOffAddress, time, false))
                 context.res.status = 200
             } catch (exception: Exception){
                 context.res.status = 401
