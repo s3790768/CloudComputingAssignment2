@@ -1,0 +1,2 @@
+runtime: java11
+entrypoint: 'java -jar target/<FILL_THIS_IN_LATER>.jar'
