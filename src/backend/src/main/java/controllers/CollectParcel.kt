@@ -41,10 +41,7 @@ class CollectParcel: Handler {
                     request.method = Method.POST
                     request.endpoint = "mail/send"
                     request.body = mail.build()
-                    val response = sendGrid.api(request)
-                    println(response.getStatusCode())
-                    println(response.getBody())
-                    println(response.getHeaders())
+                    sendGrid.api(request)
                     context.res.status = 200
                 } catch (e: IOException) {
                     e.printStackTrace()
