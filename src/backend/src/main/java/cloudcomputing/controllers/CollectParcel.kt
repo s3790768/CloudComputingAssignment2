@@ -1,5 +1,6 @@
-package controllers
+package cloudcomputing.controllers
 
+import cloudcomputing.models.Parcel
 import com.google.cloud.firestore.CollectionReference
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserRecord
@@ -7,7 +8,6 @@ import com.google.firebase.cloud.FirestoreClient
 import com.sendgrid.*
 import io.javalin.http.Context
 import io.javalin.http.Handler
-import models.Parcel
 import java.lang.Exception
 import java.io.IOException
 

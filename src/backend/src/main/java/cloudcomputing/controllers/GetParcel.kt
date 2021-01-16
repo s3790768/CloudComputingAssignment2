@@ -1,9 +1,9 @@
-package controllers
+package cloudcomputing.controllers
 
 import com.google.firebase.cloud.FirestoreClient
 import io.javalin.http.Context
 import io.javalin.http.Handler
-import models.Parcel
+import cloudcomputing.models.Parcel
 
 
 class GetParcel: Handler {

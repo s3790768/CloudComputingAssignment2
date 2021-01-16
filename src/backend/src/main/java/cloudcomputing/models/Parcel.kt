@@ -1,4 +1,4 @@
-package models
+package cloudcomputing.models
 
 data class Parcel(
     val userId: String = "",
