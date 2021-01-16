@@ -13,7 +13,9 @@ public class Google {
         ClassLoader classLoader = getClass().getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream("service.json");
         GoogleCredentials credentials = GoogleCredentials.fromStream(inputStream);
-        FirebaseOptions options = FirebaseOptions.builder().setCredentials(credentials)
+        FirebaseOptions options = FirebaseOptions.builder()
+                .setCredentials(credentials)
+                .setStorageBucket("cloudcomputinga2-74277.appspot.com")
                 .build();
         FirebaseApp.initializeApp(options);
     }
