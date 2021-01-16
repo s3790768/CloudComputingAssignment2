@@ -4,7 +4,7 @@ import cloudcomputing.controllers.*;
 import cloudcomputing.utils.Stripe;
 import io.javalin.Javalin;
 import io.javalin.core.JavalinConfig;
-import cloudcomputing.utils.Firebase;
+import cloudcomputing.utils.Google;
 
 public class App {
 
@@ -12,8 +12,10 @@ public class App {
         Javalin app = Javalin.create(JavalinConfig::enableDevLogging).start(8080);
         try {
             Stripe.Companion.init();
-            new Firebase().init();
+            Google.initGMap();
+            new Google().initFireBase();
         } catch(Exception exception){
+            exception.printStackTrace();
             System.out.println("Firebase Config not found!");
         }
         configureRoutes(app);
@@ -29,5 +31,6 @@ public class App {
         app.get("/user/parcel/:id", new GetUserParcel());
         app.post("/user/:id", new StoreUserDetailsController());
 
+        app.post("/distance", new DistanceCalculator());
     }
 }

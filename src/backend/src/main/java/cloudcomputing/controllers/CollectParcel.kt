@@ -2,6 +2,7 @@ package cloudcomputing.controllers
 
 import cloudcomputing.models.Parcel
 import cloudcomputing.models.User
+import cloudcomputing.utils.Distance
 import com.google.cloud.firestore.CollectionReference
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.cloud.FirestoreClient
@@ -36,7 +37,7 @@ class CollectParcel: Handler {
                 if(paymentMethodId.isNullOrBlank()){
                     context.result("Payment Method ID not found!")
                 } else {
-                    chargeUser(context, userId ?: "", paymentMethodId)
+                    chargeUser(context, userId ?: "", paymentMethodId, parcelDetails?.pickUpLocation ?: "", parcelDetails?.dropOffLocation ?: "")
                     sendMail(context, user.email, driver.displayName)
                 }
             } catch (exception: Exception){
@@ -69,13 +70,16 @@ class CollectParcel: Handler {
         }
     }
 
-    private fun chargeUser(context: Context, userId: String, paymentMethodId: String){
+    private fun chargeUser(context: Context, userId: String,
+                           paymentMethodId: String, firstAddress: String, secondAddress: String){
         val db = FirestoreClient.getFirestore()
         docRef = db.collection("user")
         val userDetails = docRef.document(userId).get().get().toObject(User::class.java)
         if(userDetails?.stripeId != null){
+            val distance = Distance().calculate(firstAddress, secondAddress)
+            val price = distance / 100
             val createParams = PaymentIntentCreateParams.builder()
-                .setAmount(100)
+                .setAmount(price)
                 .setCurrency("aud")
                 .setConfirm(true)
                 .setPaymentMethod(paymentMethodId)
