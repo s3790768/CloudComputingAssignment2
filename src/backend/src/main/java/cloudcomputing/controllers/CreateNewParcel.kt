@@ -16,11 +16,14 @@ class CreateNewParcel: Handler {
         val dropOffAddress = context.queryParam("dropOffAddress")
         val time = context.queryParam("time")
         val uid = context.queryParam("userId")
-        if(pickupAddress != null && dropOffAddress != null && time != null && uid != null){
+        val description = context.queryParam("description")
+        if(pickupAddress != null && dropOffAddress != null
+            && time != null && uid != null && description != null){
             val firebaseAuth = FirebaseAuth.getInstance()
             try {
                 firebaseAuth.getUser(uid)
-                docRef.document().create(Parcel(uid, pickupAddress, dropOffAddress, time, false))
+                docRef.document().create(Parcel(uid, pickupAddress, dropOffAddress,
+                    time, description, false))
                 context.res.status = 200
             } catch (exception: Exception){
                 context.res.status = 401
