@@ -5,7 +5,7 @@ import com.google.firebase.cloud.FirestoreClient
 import io.javalin.http.Context
 import io.javalin.http.Handler
 import cloudcomputing.models.Parcel
-import com.google.cloud.storage.Bucket
+import cloudcomputing.utils.Moderate
 import com.google.firebase.cloud.StorageClient
 import io.javalin.core.util.FileUtil
 import java.io.FileInputStream
@@ -27,18 +27,22 @@ class CreateNewParcel: Handler {
             val firebaseAuth = FirebaseAuth.getInstance()
             try {
                 firebaseAuth.getUser(uid)
-                val parcelRef = docRef.document()
-                parcelRef.create(Parcel(uid, pickupAddress, dropOffAddress,
-                    time, description, false))
                 FileUtil.streamToFile(fileUpload.content, "upload/" + fileUpload.filename)
-                StorageClient.getInstance().bucket().create(parcelRef.id,
-                    FileInputStream("upload/" + fileUpload.filename))
-                context.res.status = 200
+                val moderate = Moderate()
+                if(moderate.image(FileInputStream("upload/" + fileUpload.filename))){
+                    context.result("Your uploaded image maybe an racy image!")
+                } else {
+                    val parcelRef = docRef.document()
+                    parcelRef.create(Parcel(uid, pickupAddress, dropOffAddress,
+                        time, description, false))
+                    StorageClient.getInstance().bucket().create(parcelRef.id,
+                        FileInputStream("upload/" + fileUpload.filename))
+                    context.res.status = 200
+                }
             } catch (exception: Exception){
                 context.res.status = 401
                 context.result("Unauthorized user")
             }
-
         } else {
             context.result("Invalid data")
         }
