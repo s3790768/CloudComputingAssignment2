@@ -1,8 +1,11 @@
 package cloudcomputing.controllers
 
+import cloudcomputing.models.HttpResponse
+import cloudcomputing.models.Parcel
 import cloudcomputing.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.cloud.FirestoreClient
+import com.google.gson.GsonBuilder
 import com.stripe.model.Customer
 import io.javalin.http.Context
 import io.javalin.http.Handler
@@ -21,10 +24,15 @@ class StoreUserDetailsController: Handler {
             val db = FirestoreClient.getFirestore()
             val docRef = db.collection("user")
             docRef.document(userRecords.uid).create(User(customer.id))
-            context.res.status = 200
+            context.result(
+                GsonBuilder()
+                    .create()
+                    .toJson(HttpResponse(200, "")))
         } catch (exception: Exception){
-            exception.printStackTrace()
-            context.result("Invalid User")
+            context.result(
+                GsonBuilder()
+                    .create()
+                    .toJson(HttpResponse(401, "Invalid user")))
         }
     }
 }

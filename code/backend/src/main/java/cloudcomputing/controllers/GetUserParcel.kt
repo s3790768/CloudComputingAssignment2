@@ -1,9 +1,11 @@
 package cloudcomputing.controllers
 
+import cloudcomputing.models.HttpResponse
 import com.google.firebase.cloud.FirestoreClient
 import io.javalin.http.Context
 import io.javalin.http.Handler
 import cloudcomputing.models.Parcel
+import com.google.gson.GsonBuilder
 
 class GetUserParcel: Handler {
 
@@ -12,11 +14,9 @@ class GetUserParcel: Handler {
         val db = FirestoreClient.getFirestore()
         val docRef = db.collection("jobs").whereEqualTo("userId", userId).get()
         val userParcel = docRef.get()
-        if(!userParcel.isEmpty){
-            context.result(userParcel.toObjects(Parcel::class.java).toString())
-        } else {
-            context.res.status = 404
-        }
-
+        context.result(
+            GsonBuilder()
+                .create()
+                .toJson(HttpResponse(200, userParcel.toObjects(Parcel::class.java))))
     }
 }

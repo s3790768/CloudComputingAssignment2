@@ -1,11 +1,13 @@
 package cloudcomputing.controllers
 
+import cloudcomputing.models.HttpResponse
 import cloudcomputing.models.Parcel
 import cloudcomputing.models.User
 import cloudcomputing.utils.Distance
 import com.google.cloud.firestore.CollectionReference
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.cloud.FirestoreClient
+import com.google.gson.GsonBuilder
 import com.sendgrid.*
 import com.stripe.model.PaymentIntent
 import com.stripe.param.PaymentIntentCreateParams
@@ -35,19 +37,26 @@ class CollectParcel: Handler {
                 val user = firebaseAuth.getUser(userId)
                 val paymentMethodId = context.formParam("paymentMethodId")
                 if(paymentMethodId.isNullOrBlank()){
-                    context.result("Payment Method ID not found!")
+                    context.result(
+                        GsonBuilder()
+                        .create()
+                        .toJson(HttpResponse(400, "Payment Method ID not found")))
                 } else {
                     chargeUser(context, userId ?: "", paymentMethodId, parcelDetails?.pickUpLocation ?: "", parcelDetails?.dropOffLocation ?: "")
                     sendMail(context, user.email, driver.displayName)
                 }
             } catch (exception: Exception){
                 exception.printStackTrace()
-                context.res.status = 401
-                context.result("Driver ID is invalid")
+                context.result(
+                    GsonBuilder()
+                        .create()
+                        .toJson(HttpResponse(401, "Driver ID is invalid")))
             }
         } else {
-            context.res.status = 401
-            context.result("Please provide driver ID")
+            context.result(
+                GsonBuilder()
+                    .create()
+                    .toJson(HttpResponse(401, "Please provide driver ID")))
         }
     }
 
@@ -64,9 +73,15 @@ class CollectParcel: Handler {
             request.endpoint = "mail/send"
             request.body = mail.build()
             sendGrid.api(request)
-            context.res.status = 200
+            context.result(
+                GsonBuilder()
+                    .create()
+                    .toJson(HttpResponse(200, "")))
         } catch (e: IOException) {
-            context.res.status = 500
+            context.result(
+                GsonBuilder()
+                    .create()
+                    .toJson(HttpResponse(500, "There was an error contacting your driver")))
         }
     }
 
@@ -87,7 +102,10 @@ class CollectParcel: Handler {
                 .build()
             PaymentIntent.create(createParams)
         } else {
-            context.result("User credit card details not found!")
+            context.result(
+                GsonBuilder()
+                    .create()
+                    .toJson(HttpResponse(500, "Your credit card details is not found")))
         }
     }
 }

@@ -1,10 +1,12 @@
 package cloudcomputing.controllers
 
+import cloudcomputing.models.HttpResponse
 import com.google.firebase.cloud.FirestoreClient
 import io.javalin.http.Context
 import io.javalin.http.Handler
 import cloudcomputing.models.Parcel
 import com.google.firebase.cloud.StorageClient
+import com.google.gson.GsonBuilder
 import java.util.concurrent.TimeUnit
 
 
@@ -22,9 +24,15 @@ class GetParcel: Handler {
                 parcel?.dropOffLocation ?: "", parcel?.time ?: "",
                 parcel?.description ?: "", parcel?.isAccepted ?: false,
                 parcel?.driverId ?: "", parcel?.isDelivered ?: false, url.toString())
-            context.result(parcelModel.toString())
+            context.result(
+                GsonBuilder()
+                    .create()
+                    .toJson(HttpResponse(200, parcelModel)))
         } else {
-            context.res.status = 404
+            context.result(
+                GsonBuilder()
+                    .create()
+                    .toJson(HttpResponse(404, "Parcel not found")))
         }
     }
 }
