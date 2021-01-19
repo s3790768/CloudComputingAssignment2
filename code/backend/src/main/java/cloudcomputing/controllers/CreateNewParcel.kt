@@ -32,7 +32,10 @@ class CreateNewParcel: Handler {
                 FileUtil.streamToFile(fileUpload.content, "upload/" + fileUpload.filename)
                 val moderate = Moderate()
                 if(moderate.image(FileInputStream("upload/" + fileUpload.filename))){
-                    context.result("Your uploaded image maybe an racy image!")
+                    context.result(
+                        GsonBuilder()
+                            .create()
+                            .toJson(HttpResponse(401, "Your uploaded image maybe an racy image!")))
                 } else {
                     val parcelRef = docRef.document()
                     parcelRef.create(Parcel(uid, pickupAddress, dropOffAddress,
