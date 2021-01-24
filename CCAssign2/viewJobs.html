@@ -55,28 +55,28 @@
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/index.html">
+            <a class="nav-link" aria-current="page" href="/riderIndex.html">
               <span data-feather="home"></span>
               Overview
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/order.html">
+            <a class="nav-link active" href="/viewJobs.html">
               <span data-feather="file"></span>
-              Create Order
+              View Jobs
               
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/viewOrder.html">
+            <a class="nav-link" href="/myJob.html">
               <span data-feather="shopping-cart"></span>
-              View Orders
+              My Jobs
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/orderStatus.html">
+            <a class="nav-link" href="changeStatus.html">
               <span data-feather="users"></span>
-              Order Status
+              Change Status
             </a>
           </li>
         </ul>
@@ -84,28 +84,56 @@
     </nav>
 <!--Main Content-->
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <!--img-->
-      <img class="d-block w-100" src="/img/deliver.png" alt="First slide">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Overview</h1>
-      </div>
-        <p>Parcelize is a on-demand parcel delivery application similar to taxi business applications such as Lyft and Uber.
-          Due to COVID-19 restrictions, parcels delivery are taking longer than usual and deliveries are being re-routed up to 1500 kilometers detour. [1] This was done to ease pressure off Australia Post(AusPost) workers.
-          Small businesses such as e-commerce are having booming business but delivery is affecting customers from receiving their parcels on time. With gig economy in Australia on the rise[2], parcels would be delivered quicker, perhaps in a matter of hours instead of days(assuming they are intrastate).
-          A customer will book a ride and set their parcel’s pickup and drop off points. A rider will then have a list of “jobs” he / she can choose. After choosing the job, the rider will pick up the parcel and the customer will be able to track it.
-        </p>
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">How to use our service</h1>
-      </div>
-          <p>
-            Step 1 <br>Go to "Create Order" to place an order
-            <br>
-            Step 2 <br>Enter pick up and drop off points
-            <br>
-            Step 3 <br>check order status and view all previous orders
-
-          </p>
-  
+      
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Select Jobs</h1>
+        </div>
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Sender Name</th>
+                <th scope="col">Receiver Name</th>
+                <th scope="col">Pickup Address</th>
+                <th scope="col">Destination Address</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>John</td>
+                <td>Mark</td>
+                <td>29 Clarandon st.</td>
+                <td>99 view dr.</td>
+                <td>
+                  <button type="button" class="btn btn-success">select<i class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Wayne</td>
+                <td>Jacob</td>
+                <td>16 lygon st.</td>
+                <td>22 westminister dr.</td>
+                <td>
+                  <button type="button" class="btn btn-success">select<i class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Brooke</td>
+                <td>Larry</td>
+                <td>13 ormond st.</td>
+                <td>22 hume st.</td>
+                <td>
+                  <button type="button" class="btn btn-success">select<i class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        
+      
     </main>
   </div>
 </div>
