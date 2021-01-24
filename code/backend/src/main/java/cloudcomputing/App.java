@@ -1,7 +1,7 @@
 package cloudcomputing;
 
 import cloudcomputing.controllers.*;
-import cloudcomputing.utils.Stripe;
+import com.stripe.Stripe;
 import io.javalin.Javalin;
 import io.javalin.core.JavalinConfig;
 import cloudcomputing.utils.Google;
@@ -11,7 +11,7 @@ public class App {
     public static void main(String[] args) {
         Javalin app = Javalin.create(JavalinConfig::enableDevLogging).start(8080);
         try {
-            Stripe.Companion.init();
+            Stripe.apiKey = Constants.STRIPE_KEY;
             Google.initGMap();
             new Google().initFireBase();
         } catch(Exception exception){

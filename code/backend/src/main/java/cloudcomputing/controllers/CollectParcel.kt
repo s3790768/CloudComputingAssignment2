@@ -1,5 +1,6 @@
 package cloudcomputing.controllers
 
+import cloudcomputing.Constants
 import cloudcomputing.models.HttpResponse
 import cloudcomputing.models.Parcel
 import cloudcomputing.models.User
@@ -66,7 +67,7 @@ class CollectParcel: Handler {
         val to = Email(userEmail)
         val content = Content("text/plain", "Your parcel is ready to be picked up by: $driverName")
         val mail = Mail(from, subject, to, content)
-        val sendGrid = SendGrid("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")
+        val sendGrid = SendGrid(Constants.SENDGRID_KEY)
         val request = Request()
         try {
             request.method = Method.POST
