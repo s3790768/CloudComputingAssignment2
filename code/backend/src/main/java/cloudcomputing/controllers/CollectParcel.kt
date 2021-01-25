@@ -42,7 +42,7 @@ class CollectParcel: Handler {
                         .create()
                         .toJson(HttpResponse(400, "Payment Method ID not found")))
                 } else {
-                    chargeUser(context, userId ?: "", paymentMethodId, parcelDetails?.pickUpLocation ?: "", parcelDetails?.dropOffLocation ?: "")
+                    chargeUser(context, userId ?: "", paymentMethodId, parcelDetails?.pickupAddress ?: "", parcelDetails?.dropOffAddress ?: "")
                     sendMail(context, user.email, driver.displayName)
                 }
             } catch (exception: Exception){

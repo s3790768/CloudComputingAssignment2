@@ -2,13 +2,11 @@ package cloudcomputing.controllers
 
 import cloudcomputing.models.HttpResponse
 import cloudcomputing.models.Parcel
-import cloudcomputing.utils.Moderate
 import com.google.firebase.cloud.FirestoreClient
-import com.google.firebase.cloud.StorageClient
 import com.google.gson.GsonBuilder
 import io.javalin.http.Context
 import io.javalin.http.Handler
-import java.io.FileInputStream
+import kotlin.collections.HashMap
 
 class EditParcel: Handler {
 
@@ -25,28 +23,14 @@ class EditParcel: Handler {
                         .create()
                         .toJson(HttpResponse(200, "Parcel is already delivered or is being delivered")))
             } else {
-                val pickupAddress = context.queryParam("pickupAddress")
-                val dropOffAddress = context.queryParam("dropOffAddress")
-                val time = context.queryParam("time")
-                val description = context.queryParam("description")
-                val fileUpload = context.uploadedFile("file")
-                StorageClient.getInstance().bucket().create(parcelId,
-                    FileInputStream("upload/" + fileUpload?.filename))
-                val moderate = Moderate()
-                if(moderate.image(FileInputStream("upload/" + fileUpload?.filename))){
-                    context.result(
-                        GsonBuilder()
-                            .create()
-                            .toJson(HttpResponse(401, "Your uploaded image maybe an racy image!")))
-                } else {
-                    val hashMap: HashMap<String, Any?> = hashMapOf("pickupAddress" to pickupAddress,
-                        "dropOffAddress" to dropOffAddress, "time" to time, "description" to description)
-                    db.document(parcelId).update(hashMap)
-                    context.result(
-                        GsonBuilder()
-                            .create()
-                            .toJson(HttpResponse(200, "Updated")))
-                }
+                val bodyData = GsonBuilder().create().fromJson(context.body(), Parcel::class.java)
+                val hashMap: HashMap<String, Any?> = hashMapOf("pickupAddress" to bodyData.pickupAddress,
+                    "dropOffAddress" to bodyData.dropOffAddress, "time" to bodyData.time, "description" to bodyData.description)
+                db.document(parcelId).update(hashMap)
+                context.result(
+                    GsonBuilder()
+                        .create()
+                        .toJson(HttpResponse(200, "Updated")))
             }
 
         } else {

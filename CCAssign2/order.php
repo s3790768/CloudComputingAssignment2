@@ -63,17 +63,13 @@ if(isset($_POST['createParcelForm'])) {
                        name="destinationAddress" placeholder="1234 Main St">
               </div>
               <div class="form-row">
-                <div class="form-row">
-                <label class="form-label" for="customFile">Upload Parcel Image</label>
-                <input type="file" name="file" class="form-control" id="file"/>
-                <p><p>
-                <div class="col-sm-10">
+                  <div class="col-sm-10">
                     <button type="submit" name="createParcelForm"  value="createParcelForm" class="btn btn-success">Create Order</button>
                   </div>
-              </div>
                   <script>
                       document.getElementById('userId').value = getCookie('userId');
                   </script>
+              </div>
           </form>
     </main>
   </div>
