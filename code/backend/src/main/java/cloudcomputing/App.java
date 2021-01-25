@@ -26,6 +26,8 @@ public class App {
         app.get("/parcel/:id", new GetParcel());
         app.post("/parcel/:id", new CollectParcel());
         app.post("/parcel", new CreateNewParcel());
+        app.get("/parcel", new GetAllParcel());
+
         app.delete("/parcel/:id", new DeleteParcel());
         app.put("/parcel/:id", new EditParcel());
         // User

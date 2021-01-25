@@ -1,4 +1,4 @@
-
+<?php require_once('includes/parcel.inc.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,53 +16,39 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">View Orders</h1>
         </div>
+
         <table class="table">
             <thead class="thead-dark">
-              <tr>
-                <th scope="col">#</th>
+            <tr>
                 <th scope="col">Sender Name</th>
                 <th scope="col">Receiver Name</th>
                 <th scope="col">Pickup Address</th>
                 <th scope="col">Destination Address</th>
-                <th scope="col">Actions</th>
-              </tr>
+                <th scope="col">Description</th>
+            </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>John</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>
-                  <button type="button" class="btn btn-success">edit<i class="fas fa-edit"></i></button>
-                  <button type="button" class="btn btn-danger">delete<i class="far fa-trash-alt"></i></button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Wayne</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>
-                  <button type="button" class="btn btn-success">edit<i class="fas fa-edit"></i></button>
-                  <button type="button" class="btn btn-danger">delete<i class="far fa-trash-alt"></i></button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Brooke</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>
-                  <button type="button" class="btn btn-success">edit<i class="fas fa-edit"></i></button>
-                  <button type="button" class="btn btn-danger">delete<i class="far fa-trash-alt"></i></button>
-                </td>
-              </tr>
+            <?php foreach(viewParcels() as $value)
+                if($value["accepted"] != true || $value["delivered"] != true) { ?>
+                    <td>
+                        <?= $value['pickupAddress'] ?>
+                    </td>
+
+                    <td>
+                        <?= $value['dropOffAddress'] ?>
+                    </td>
+
+                    <td>
+                        <?= $value['description'] ?>
+                    </td>
+
+                    <td>
+                        <?= $value['time']  ?>
+                    </td>
+
+                <?php }?>
             </tbody>
-          </table>
+        </table>
         
     </main>
   </div>

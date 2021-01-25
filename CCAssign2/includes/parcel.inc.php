@@ -33,7 +33,7 @@ function createParcel($form){
     if (empty($errors)){
         // TODO: Update the URL before submission
         // For debugging locally -> http://127.0.0.1:8080/parcel
-        // For production -> https://cloudcomputinga2.ts.r.appspot.com
+        // For production -> https://cloudcomputinga2.ts.r.appspot.com/parcel
         $ch = curl_init('http://127.0.0.1:8080/parcel');
 
         $jsonData = array(
@@ -61,8 +61,17 @@ function createParcel($form){
     return $errors;
 }
 
-
-
+function viewParcels(){
+    // TODO: Update this URL
+    // For debugging locally -> http://127.0.0.1:8080/parcel
+    // For production -> https://cloudcomputinga2.ts.r.appspot.com/parcel
+    $ch = curl_init('http://127.0.0.1:8080/parcel');
+    $result = curl_exec($ch);
+    curl_close($ch);
+    $parseResponse = json_decode($result, true);
+    console_log($parseResponse['response']);
+    return isset($parseResponse['response']) ? $parseResponse['response'] : [];
+}
 
 function console_log($output) {
     if (is_array($output))
