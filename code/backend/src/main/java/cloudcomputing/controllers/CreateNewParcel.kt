@@ -18,11 +18,11 @@ class CreateNewParcel: Handler {
     override fun handle(context: Context) {
         val db = FirestoreClient.getFirestore()
         val docRef = db.collection("jobs")
-        val pickupAddress = context.queryParam("pickupAddress")
-        val dropOffAddress = context.queryParam("dropOffAddress")
-        val time = context.queryParam("time")
-        val uid = context.queryParam("userId")
-        val description = context.queryParam("description")
+        val pickupAddress = context.formParam("pickupAddress")
+        val dropOffAddress = context.formParam("dropOffAddress")
+        val time = context.formParam("time")
+        val uid = context.formParam("userId")
+        val description = context.formParam("description")
         val fileUpload = context.uploadedFile("file")
         if(pickupAddress != null && dropOffAddress != null
             && time != null && uid != null && description != null && fileUpload != null){
@@ -45,7 +45,7 @@ class CreateNewParcel: Handler {
                     context.result(
                         GsonBuilder()
                             .create()
-                            .toJson(HttpResponse(200, "")))
+                            .toJson(HttpResponse(200, "Success")))
                 }
             } catch (exception: Exception){
                 context.result(

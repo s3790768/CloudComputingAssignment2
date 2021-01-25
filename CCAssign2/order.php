@@ -1,13 +1,11 @@
-<?php
-require_once('includes/parcel.inc.php');
+<?php require_once('includes/parcel.inc.php'); ?>
 
+<?php
 $errors = '';
 if(isset($_POST['createParcelForm'])) {
     $errors = createParcel($_POST);
-    if (empty($errors)) {
-
-    } else {
-        echo $errors;
+    if (!empty($errors)) {
+        echo '<script type="text/javascript">alert("'.$errors.'");</script>';
     }
 }
 ?>
@@ -30,26 +28,25 @@ if(isset($_POST['createParcelForm'])) {
                     align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Create Order</h1>
           </div>
-          <form id="createParcelForm" method="post" enctype="multipart/form-data">
-              <input type="hidden" id="userId" value="" />
+          <form method="post" enctype="multipart/form-data">
 
+              <input type="hidden" name="userId" id="userId" value="" />
               <!--pickup information-->
             <div class="form-row">
             <h4>Pick up information</h4>
               <div class="form-group col-md-6">
-                <label for="Sender nav-item">Sender Name </label>
-                <input type="name" class="form-control" id="senderName" placeholder="Sender Name">
+                <label for="Sender nav-item">Sender Name</label>
+                  <input type="text" class="form-control" id="senderName" name="senderName" placeholder="Sender Name">
               </div>
             </div>
 
             <div class="form-group">
                 <label for="sourceAddress">Address</label>
-                <input type="text" class="form-control" id="sourceAddress" placeholder="1234 Main St">
+                <input type="text" class="form-control" id="sourceAddress" name="sourceAddress" placeholder="1234 Main St">
                 <label for="description">Description</label>
-                <input type="text" class="form-control" id="description" placeholder="Description">
+                <input type="text" class="form-control" id="description" name="description" placeholder="Description">
                 <label for="time">Time</label>
-                <input type="datetime-local" class="form-control" id="time" placeholder="Time">
-
+                <input type="datetime-local" class="form-control" id="time" name="time" placeholder="Time">
             </div>
 
             <!--Border-->
@@ -58,11 +55,12 @@ if(isset($_POST['createParcelForm'])) {
             <h4>Drop off information</h4>
             <div class="form-group col-md-6">
                 <label for="Receiver nav-item">Receiver Name </label>
-                <input type="name" class="form-control" id="receiverName" placeholder="Receiver Name">
+                <input type="text" class="form-control" id="receiverName" name="receiverName" placeholder="Receiver Name">
             </div>
             <div class="form-group">
                 <label for="destinationAddress">Destination Address</label>
-                <input type="text" class="form-control" id="destinationAddress" placeholder="1234 Main St">
+                <input type="text" class="form-control" id="destinationAddress"
+                       name="destinationAddress" placeholder="1234 Main St">
               </div>
               <div class="form-row">
                 <div class="form-row">
@@ -70,7 +68,7 @@ if(isset($_POST['createParcelForm'])) {
                 <input type="file" name="file" class="form-control" id="file"/>
                 <p><p>
                 <div class="col-sm-10">
-                    <button type="submit" class="btn btn-success">Create Order</button>
+                    <button type="submit" name="createParcelForm"  value="createParcelForm" class="btn btn-success">Create Order</button>
                   </div>
               </div>
                   <script>
