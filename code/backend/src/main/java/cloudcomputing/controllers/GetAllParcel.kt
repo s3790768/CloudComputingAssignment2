@@ -13,7 +13,12 @@ class GetAllParcel: Handler {
         val db = FirestoreClient.getFirestore()
         val allParcel = arrayListOf<Parcel>()
         db.collection("jobs").listDocuments().forEach { docReference ->
-            allParcel.add(docReference.get().get().toObject(Parcel::class.java) ?: Parcel())
+            val parcel = docReference.get().get().toObject(Parcel::class.java)
+            if(parcel?.isAccepted != true || !parcel.isDelivered){
+                allParcel.add(Parcel(parcel?.userId ?: "", parcel?.pickupAddress ?: "",
+                    parcel?.dropOffAddress ?: "", parcel?.time ?: "", parcel?.description ?: "",
+                    parcelId = docReference.get().get().id))
+            }
         }
         context.result(
             GsonBuilder()

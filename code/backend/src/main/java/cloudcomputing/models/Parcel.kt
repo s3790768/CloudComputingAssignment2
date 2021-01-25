@@ -8,5 +8,6 @@ data class Parcel(
     val description: String = "",
     val isAccepted: Boolean = false,
     val driverId: String = "",
-    val isDelivered: Boolean = false
+    val isDelivered: Boolean = false,
+    val parcelId: String = ""
 )

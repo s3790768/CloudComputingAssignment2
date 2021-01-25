@@ -27,12 +27,11 @@
             </tr>
             </thead>
             <tbody>
-            <?php foreach(viewParcels() as $value){
-                if($value["accepted"] != true || $value["delivered"] != true) { ?>
-            <tr>
-                    <td>
-                        <?= htmlspecialchars_decode($value['pickupAddress']) ?>
-                    </td>
+            <?php foreach(viewParcels() as $value){?>
+                    <tr>
+                        <td>
+                            <?= htmlspecialchars_decode($value['pickupAddress']) ?>
+                        </td>
 
                     <td>
                         <?= htmlspecialchars_decode($value['dropOffAddress']) ?>
@@ -47,7 +46,7 @@
                     </td>
             </tr>
                     <?php
-                }
+
             }?>
             </tbody>
         </table>
