@@ -3,6 +3,9 @@
 <html lang="en">
 <head>
     <?php require_once('includes/head.inc.php'); ?>
+    <script type="text/javascript" src="scripts/table-click.js"></script>
+    <link rel="stylesheet" href="styles/category.css">
+
 </head>
 <body>
 <?php require_once('includes/header.inc.php'); ?>
@@ -17,7 +20,7 @@
             <h1 class="h2">View Orders</h1>
         </div>
 
-        <table class="table">
+        <table class="table table-striped table-hover" id="tableLog">
             <thead class="thead-dark">
             <tr>
                 <th scope="col">Pickup Address</th>
@@ -28,7 +31,7 @@
             </thead>
             <tbody>
             <?php foreach(viewParcels() as $value){?>
-                    <tr>
+                    <tr data-href="parcelDetails/<?= $value['parcelId']; ?>">
                         <td>
                             <?= htmlspecialchars_decode($value['pickupAddress']) ?>
                         </td>

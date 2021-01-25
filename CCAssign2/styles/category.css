@@ -1,0 +1,12 @@
+#tableLog tr {
+    background-color: #eee;
+    border-top: 1px solid #fff;
+}
+
+#tableLog tr:hover {
+    background-color: #ccc;
+}
+
+#tableLog td:hover {
+    cursor: pointer;
+}
