@@ -2,7 +2,6 @@
 
 function createParcel($form){
     $errors = '';
-    console_log($form);
 
     if(!isset($form['senderName'])){
         $errors = 'Please enter your name';
@@ -36,6 +35,7 @@ function createParcel($form){
         // For production -> https://cloudcomputinga2.ts.r.appspot.com
 
         $ch = curl_init('http://127.0.0.1:8080/parcel');
+
         $jsonData = array(
             'pickupAddress' =>  htmlspecialchars(rawurlencode($form['sourceAddress'])),
             'dropOffAddress' =>  htmlspecialchars(rawurlencode($form['destinationAddress'])),
@@ -46,14 +46,16 @@ function createParcel($form){
         );
 
         $jsonDataEncoded = json_encode($jsonData);
-
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch);
+        curl_close($ch);
 
-        $parseResponse = json_decode($result);
-        if($parseResponse -> {'status'} != 200){
-            $errors = $parseResponse -> {'response'};
+        $parseResponse = json_decode($result, true);
+        console_log($parseResponse);
+        if($parseResponse['status'] != 200){
+            $errors = $parseResponse['response'];
         }
     }
 
