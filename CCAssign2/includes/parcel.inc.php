@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 
 function createParcel($form){
     $errors = '';
@@ -37,11 +38,11 @@ function createParcel($form){
         $ch = curl_init('http://127.0.0.1:8080/parcel');
 
         $jsonData = array(
-            'pickupAddress' =>  htmlspecialchars(rawurlencode($form['sourceAddress'])),
-            'dropOffAddress' =>  htmlspecialchars(rawurlencode($form['destinationAddress'])),
-            'description' =>  htmlspecialchars(rawurlencode($form['description'])),
-            'time' => htmlspecialchars(rawurlencode($form['time'])),
-            'userId' => htmlspecialchars(rawurlencode($form['userId']))
+            'pickupAddress' =>  $form['sourceAddress'],
+            'dropOffAddress' =>  $form['destinationAddress'],
+            'description' =>  $form['description'],
+            'time' => $form['time'],
+            'userId' => $form['userId']
         );
 
         $jsonDataEncoded = json_encode($jsonData);

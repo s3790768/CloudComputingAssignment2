@@ -28,23 +28,24 @@
             </thead>
             <tbody>
             <?php foreach(viewParcels() as $value){
-                console_log($value['pickupAddress']);
                 if($value["accepted"] != true || $value["delivered"] != true) { ?>
+            <tr>
                     <td>
-                        <?= $value['pickupAddress'] ?>
+                        <?= htmlspecialchars_decode($value['pickupAddress']) ?>
                     </td>
 
                     <td>
-                        <?= $value['dropOffAddress'] ?>
+                        <?= htmlspecialchars_decode($value['dropOffAddress']) ?>
                     </td>
 
                     <td>
-                        <?= $value['description'] ?>
+                        <?= htmlspecialchars_decode($value['description']) ?>
                     </td>
 
                     <td>
-                        <?= $value['time']  ?>
+                        <?= htmlspecialchars_decode($value['time'])  ?>
                     </td>
+            </tr>
                     <?php
                 }
             }?>
