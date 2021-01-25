@@ -71,6 +71,14 @@ function viewParcels(){
     return isset($parseResponse['response']) ? $parseResponse['response'] : [];
 }
 
+function viewParcel($parcelId){
+    // TODO: Update this URL
+    $json = file_get_contents('http://127.0.0.1:8080/parcel/' . $parcelId);
+    $parseResponse = json_decode($json, true);
+    return isset($parseResponse['response']) ? $parseResponse['response'] : [];
+}
+
+
 function console_log($output) {
     if (is_array($output))
         $output = implode(',', $output);

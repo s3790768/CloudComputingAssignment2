@@ -6,7 +6,3 @@
 #tableLog tr:hover {
     background-color: #ccc;
 }
-
-#tableLog td:hover {
-    cursor: pointer;
-}
