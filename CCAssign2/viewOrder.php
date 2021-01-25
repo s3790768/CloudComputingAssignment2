@@ -20,15 +20,15 @@
         <table class="table">
             <thead class="thead-dark">
             <tr>
-                <th scope="col">Sender Name</th>
-                <th scope="col">Receiver Name</th>
                 <th scope="col">Pickup Address</th>
                 <th scope="col">Destination Address</th>
                 <th scope="col">Description</th>
+                <th scope="col">Time</th>
             </tr>
             </thead>
             <tbody>
-            <?php foreach(viewParcels() as $value)
+            <?php foreach(viewParcels() as $value){
+                console_log($value['pickupAddress']);
                 if($value["accepted"] != true || $value["delivered"] != true) { ?>
                     <td>
                         <?= $value['pickupAddress'] ?>
@@ -45,8 +45,9 @@
                     <td>
                         <?= $value['time']  ?>
                     </td>
-
-                <?php }?>
+                    <?php
+                }
+            }?>
             </tbody>
         </table>
         
@@ -55,5 +56,3 @@
 </div>
 </body>
 </html>
-
-
