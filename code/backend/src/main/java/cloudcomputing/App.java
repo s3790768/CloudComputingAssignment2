@@ -31,9 +31,8 @@ public class App {
         app.delete("/parcel/:id", new DeleteParcel());
         app.put("/parcel/:id", new EditParcel());
         // User
-        app.get("/user/parcel/:id", new GetUserParcel());
+        app.get("/user/parcel/:userId", new GetUserParcel());
         app.post("/user/parcel/report/:id", new ReportController());
-        app.post("/user/:id", new StoreUserDetailsController());
 
         app.post("/distance", new DistanceCalculator());
     }

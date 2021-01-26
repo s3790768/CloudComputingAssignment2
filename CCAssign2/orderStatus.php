@@ -4,6 +4,8 @@
 <head>
     <?php require_once('includes/head.inc.php'); ?>
     <script src="scripts/cookies.js"></script>
+    <script type="text/javascript" src="scripts/table-click.js"></script>
+    <link rel="stylesheet" href="styles/table.css">
 </head>
 <body>
 <?php require_once('includes/header.inc.php'); ?>

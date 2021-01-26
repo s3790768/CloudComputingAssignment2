@@ -10,7 +10,7 @@ import com.google.gson.GsonBuilder
 class GetUserParcel: Handler {
 
     override fun handle(context: Context) {
-        val userId = context.pathParam("id", String::class.java).get()
+        val userId = context.pathParam("userId", String::class.java).get()
         val db = FirestoreClient.getFirestore()
         val docRef = db.collection("jobs").whereEqualTo("userId", userId)
         val parcelList = arrayListOf<Parcel>()
