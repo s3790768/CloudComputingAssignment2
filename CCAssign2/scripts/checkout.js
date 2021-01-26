@@ -58,7 +58,6 @@ form.addEventListener('submit', function(event) {
             if (result.error) {
                 showError(result.error.message);
             } else {
-                // TODO: Replace this URL
                 window.location.replace("viewOrder.php");
             }
         });
