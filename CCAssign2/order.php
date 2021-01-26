@@ -12,15 +12,6 @@ if(isset($_POST['createParcelForm'])) {
         exit();
     }
 }
-
-$parcelDetails = '';
-if(isset($_GET['parcelId'])){
-    $userParcel = viewParcel($_GET['parcelId']);
-    if($userParcel['userId'] == $_COOKIE['userId']){
-        $parcelDetails = viewParcel($_GET['parcelId']);
-    }
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,16 +44,14 @@ if(isset($_GET['parcelId'])){
                 <label for="sourceAddress">Address</label>
                 <input type="text" class="form-control"
                        id="sourceAddress" name="sourceAddress"
-                       placeholder="1234 Main St" value="<?php echo $parcelDetails['pickupAddress'] ?>">
+                       placeholder="1234 Main St">
                 <label for="description">Description</label>
                 <input type="text" class="form-control" id="description"
                        name="description"
-                       placeholder="Description"
-                       value="<?php echo $parcelDetails['description'] ?>">
+                       placeholder="Description">
                 <label for="time">Time</label>
                 <input type="datetime-local" class="form-control"
-                       id="time" name="time" placeholder="Time"
-                       value="<?php echo $parcelDetails['time'] ?>">
+                       id="time" name="time" placeholder="Time">
             </div>
 
             <!--Border-->
@@ -72,15 +61,13 @@ if(isset($_GET['parcelId'])){
             <div class="form-group col-md-6">
                 <label for="Receiver nav-item">Receiver Name </label>
                 <input type="text" class="form-control" id="receiverName"
-                       name="receiverName" placeholder="Receiver Name"
-                       value="<?php echo $parcelDetails['receiverName'] ?>">
+                       name="receiverName" placeholder="Receiver Name">
             </div>
             <div class="form-group">
                 <label for="destinationAddress">Destination Address</label>
                 <input type="text" class="form-control" id="destinationAddress"
                        name="destinationAddress"
-                       placeholder="1234 Main St"
-                       value="<?php echo $parcelDetails['dropOffAddress'] ?>">
+                       placeholder="1234 Main St">
             </div>
               <div class="form-row">
                   <div class="col-sm-10">
