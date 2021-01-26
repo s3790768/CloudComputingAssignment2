@@ -73,18 +73,13 @@ if(isset($_POST['reportParcel'])){
                 </table>
                 <?php
                 $userId = $parcel['userId']; ?>
-                    <button id="editButton" type="submit" class="btn btn-success">Edit</button>
-                    <button id="deleteButton" name="deleteParcel" value="deleteParcel" type="submit" class="btn btn-danger">Delete</button>
                     <button id="reportButton" name="reportParcel"  value="reportParcel" type="submit" class="btn btn-danger">Report</button>
                     <button id="bookParcel" name="bookParcel"  value="bookParcel" type="submit" class="btn btn-success">Apply</button>
                     <input type="hidden" name="userId" id="userId" value="" />
                     <script>
                         document.getElementById('userId').value = getCookie('userId');
                         const userId = '<?php echo $parcel['userId'] ;?>';
-                        if(userId != getCookie("userId")){
-                            document.getElementById("editButton").style.display = "none"
-                            document.getElementById("deleteButton").style.display = "none"
-                        } else {
+                        if(userId == getCookie("userId")){
                             // Only show report button if user didn't post this
                             document.getElementById("reportButton").style.display = "none"
                             document.getElementById("bookParcel").style.display = "none"

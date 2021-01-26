@@ -28,8 +28,6 @@ public class App {
         app.post("/parcel", new CreateNewParcel());
         app.get("/parcel", new GetAllParcel());
 
-        app.delete("/parcel/:id", new DeleteParcel());
-        app.put("/parcel/:id", new EditParcel());
         // User
         app.get("/user/parcel/:userId", new GetUserParcel());
         app.post("/user/parcel/report/:id", new ReportController());
