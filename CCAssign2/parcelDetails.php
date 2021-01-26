@@ -50,6 +50,16 @@ if(isset($_POST['deleteParcel'])){
                             <b>Pick up time:</b> <?= $parcel['time']  ?>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <b>Sender Name:</b> <?= $parcel['senderName']  ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Receiver Name:</b> <?= $parcel['receiverName']  ?>
+                        </td>
+                    </tr>
                 </table>
                 <?php
                 $userId = $parcel['userId']; ?>
@@ -70,8 +80,8 @@ if(isset($_POST['deleteParcel'])){
                             document.getElementById("bookParcel").style.display = "none"
                         }
                     </script>
-                </form>
             </main>
+            </form>
         </div>
     </div>
 </body>

@@ -59,7 +59,7 @@ form.addEventListener('submit', function(event) {
                 showError(result.error.message);
             } else {
                 // TODO: Replace this URL
-                window.location.replace("http://127.0.0.1/index.php");
+                window.location.replace("viewOrder.php");
             }
         });
 });

@@ -12,11 +12,19 @@ class GetUserParcel: Handler {
     override fun handle(context: Context) {
         val userId = context.pathParam("id", String::class.java).get()
         val db = FirestoreClient.getFirestore()
-        val docRef = db.collection("jobs").whereEqualTo("userId", userId).get()
-        val userParcel = docRef.get()
+        val docRef = db.collection("jobs").whereEqualTo("userId", userId)
+        val parcelList = arrayListOf<Parcel>()
+        docRef.get().get().documents.forEach {  snapShot ->
+            val snap = snapShot.toObject(Parcel::class.java)
+            parcelList.add(Parcel(snap.userId, snap.pickupAddress,
+                snap.dropOffAddress, snap.time, snap.description, snap.isAccepted,
+                snap.driverId, snap.isDelivered, snapShot.id,
+                receiverName = snap.receiverName, senderName = snap.senderName))
+        }
+
         context.result(
             GsonBuilder()
                 .create()
-                .toJson(HttpResponse(200, userParcel.toObjects(Parcel::class.java))))
+                .toJson(HttpResponse(200, parcelList)))
     }
 }

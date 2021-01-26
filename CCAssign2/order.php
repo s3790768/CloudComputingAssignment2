@@ -38,10 +38,6 @@ if(isset($_POST['createParcelForm'])) {
               <!--pickup information-->
             <div class="form-row">
             <h4>Pick up information</h4>
-              <div class="form-group col-md-6">
-                <label for="Sender nav-item">Sender Name</label>
-                  <input type="text" class="form-control" id="senderName" name="senderName" placeholder="Sender Name">
-              </div>
             </div>
 
             <div class="form-group">
