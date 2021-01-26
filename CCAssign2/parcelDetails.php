@@ -1,5 +1,9 @@
 <?php require_once('includes/parcel.inc.php');
-$parcel = viewParcel($_GET['id'])
+$parcelId = $_GET['id'];
+$parcel = viewParcel($parcelId);
+if(isset($_POST['bookParcel'])) {
+    applyParcel($parcelId, $_POST['userId']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +18,7 @@ $parcel = viewParcel($_GET['id'])
     <div class="container-fluid">
         <div class="row">
             <?php require_once('includes/navbar.inc.php'); ?>
+            <form method="post">
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <table class="table table-striped table-hover" id="tableLog">
                     <tr>
@@ -39,16 +44,24 @@ $parcel = viewParcel($_GET['id'])
                 </table>
                 <?php
                 $userId = $parcel['userId']; ?>
-                <button id="editButton" type="button" class="btn btn-success">edit<i class="fas fa-edit"></i></button>
-                <button id="deleteButton" type="button" class="btn btn-danger">delete<i class="far fa-trash-alt"></i></button>
-                <script>
-                    const userId = '<?php echo $parcel['userId'] ;?>';
-                    if(userId != getCookie("userId")){
-                        document.getElementById("editButton").style.display = "none"
-                        document.getElementById("deleteButton").style.display = "none"
-                    }
-                </script>
-
+                    <button id="editButton" type="submit" class="btn btn-success">Edit</button>
+                    <button id="deleteButton" type="submit" class="btn btn-danger">Delete</button>
+                    <button id="reportButton" type="submit" class="btn btn-danger">Report</button>
+                    <button id="bookParcel" name="bookParcel"  value="bookParcel" type="submit" class="btn btn-success">Apply</button>
+                    <input type="hidden" name="userId" id="userId" value="" />
+                    <script>
+                        document.getElementById('userId').value = getCookie('userId');
+                        const userId = '<?php echo $parcel['userId'] ;?>';
+                        if(userId != getCookie("userId")){
+                            document.getElementById("editButton").style.display = "none"
+                            document.getElementById("deleteButton").style.display = "none"
+                        } else {
+                            // Only show report button if user didn't post this
+                            document.getElementById("reportButton").style.display = "none"
+                            document.getElementById("bookParcel").style.display = "none"
+                        }
+                    </script>
+                </form>
             </main>
         </div>
     </div>

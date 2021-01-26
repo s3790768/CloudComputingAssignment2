@@ -4,24 +4,6 @@ var stripe = Stripe('pk_test_51IAAvPEhoYdXR4dITZEpLuvn35zKClUWVbZN74yjrceC9dZGwo
 // Create an instance of Elements.
 var elements = stripe.elements();
 
-// Custom styling can be passed to options when creating an Element.
-// (Note that this demo uses a wider set of styles than the guide below.)
-var style = {
-    base: {
-        color: '#32325d',
-        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSmoothing: 'antialiased',
-        fontSize: '16px',
-        '::placeholder': {
-            color: '#aab7c4'
-        }
-    },
-    invalid: {
-        color: '#fa755a',
-        iconColor: '#fa755a'
-    }
-};
-
 // Create an instance of the card Element.
 var card = elements.create('cardNumber', {
     classes : {
@@ -63,50 +45,29 @@ card.on('change', function(event) {
 var form = document.getElementById('payment-form');
 form.addEventListener('submit', function(event) {
     event.preventDefault();
-
-    stripe.createToken(card).then(function(result) {
-        if (result.error) {
-            // Inform the user if there was an error.
-            var errorElement = document.getElementById('card-errors');
-            errorElement.textContent = result.error.message;
-        } else {
-            // Send the token to your server.
-            stripeTokenHandler(result.token);
-        }
-    });
+    var url_string = window.location.href
+    var url = new URL(url_string);
+    var secret = url.searchParams.get("secret");
+    console.log(secret)
+    stripe.confirmCardPayment(secret, {
+            payment_method: {
+                card: card
+            }
+        })
+        .then(function(result) {
+            if (result.error) {
+                showError(result.error.message);
+            } else {
+                // TODO: Replace this URL
+                window.location.replace("http://127.0.0.1/index.php");
+            }
+        });
 });
 
-// Submit the form with the token ID.
-function stripeTokenHandler(token) {
-    // Insert the token ID into the form so it gets submitted to the server
-    var form = document.getElementById('payment-form');
-    var hiddenInput = document.createElement('input');
-    hiddenInput.setAttribute('type', 'hidden');
-    hiddenInput.setAttribute('name', 'stripeToken');
-    hiddenInput.setAttribute('value', token.id);
-    form.appendChild(hiddenInput);
-    console.log("token: "+ token.id)
-    // Submit the form
-    var userId = getCookie("userId")
-    var details = {
-        'stripeId': token.id
-    };
-    var formBody = [];
-    for (var property in details) {
-        var encodedKey = encodeURIComponent(property);
-        var encodedValue = encodeURIComponent(details[property]);
-        formBody.push(encodedKey + "=" + encodedValue);
-    }
-    formBody = formBody.join("&");
-
-    fetch('http://localhost:8080/user/' + userId, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-        },
-        body: formBody
-    })
-
-
-    form.submit();
-}
+var showError = function(errorMsgText) {
+    var errorMsg = document.querySelector(".sr-field-error");
+    errorMsg.textContent = errorMsgText;
+    setTimeout(function() {
+        errorMsg.textContent = "";
+    }, 4000);
+};

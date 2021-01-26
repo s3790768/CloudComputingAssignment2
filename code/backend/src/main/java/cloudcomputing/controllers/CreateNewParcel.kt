@@ -6,7 +6,10 @@ import com.google.firebase.cloud.FirestoreClient
 import io.javalin.http.Context
 import io.javalin.http.Handler
 import cloudcomputing.models.Parcel
+import cloudcomputing.utils.Distance
 import com.google.gson.GsonBuilder
+import com.stripe.model.PaymentIntent
+import com.stripe.param.PaymentIntentCreateParams
 import java.lang.Exception
 
 class CreateNewParcel: Handler {
@@ -23,10 +26,7 @@ class CreateNewParcel: Handler {
                 val parcelRef = docRef.document()
                 parcelRef.create(Parcel(bodyData.userId, bodyData.pickupAddress, bodyData.dropOffAddress,
                     bodyData.time, bodyData.description, false))
-                context.result(
-                    GsonBuilder()
-                        .create()
-                        .toJson(HttpResponse(200, "Success")))
+                chargeUser(context, bodyData.pickupAddress, bodyData.dropOffAddress)
             } else {
                 context.result(
                     GsonBuilder()
@@ -39,6 +39,31 @@ class CreateNewParcel: Handler {
                 GsonBuilder()
                     .create()
                     .toJson(HttpResponse(401, "Unauthorized user")))
+        }
+    }
+
+    private fun chargeUser(context: Context,
+                           firstAddress: String, secondAddress: String) {
+        try {
+            val distance = Distance().calculate(firstAddress, secondAddress)
+            val price = distance / 100
+            val params =
+                PaymentIntentCreateParams.builder()
+                    .setCurrency("aud")
+                    .setAmount(price)
+                    .putMetadata("integration_check", "accept_a_payment")
+                    .build()
+            val intent = PaymentIntent.create(params)
+            context.result(
+                GsonBuilder()
+                    .create()
+                    .toJson(HttpResponse(200, intent.clientSecret)))
+        } catch (exception: Exception){
+            exception.printStackTrace()
+            context.result(
+                GsonBuilder()
+                    .create()
+                    .toJson(HttpResponse(300, "There was an error processing your information")))
         }
     }
 }

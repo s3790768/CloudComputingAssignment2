@@ -1,5 +1,6 @@
 package cloudcomputing.models
 
 data class User(
-    val stripeId: String = ""
+    val customerId: String = "",
+    val tokenId: String = ""
 )

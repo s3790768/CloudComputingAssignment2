@@ -4,8 +4,12 @@
 $errors = '';
 if(isset($_POST['createParcelForm'])) {
     $errors = createParcel($_POST);
-    if (!empty($errors)) {
-        echo '<script type="text/javascript">alert("'.$errors.'");</script>';
+    console_log($errors);
+    if($errors['status'] != 200){
+        echo '<script type="text/javascript">alert("'.$errors['response'].'");</script>';
+    } else {
+        header("Location: checkout.php?secret={$errors['response']}");
+        exit();
     }
 }
 ?>

@@ -17,11 +17,11 @@ function createParcel($form){
     }
 
     if(!isset($form['receiverName'])){
-        $errors = 'Please enter your receiver\'s name';
+        $errors ='Please enter your receiver\'s name';
     }
 
     if(!isset($form['description'])){
-        $errors = 'Please enter your description';
+        $errors ='Please enter your description';
     }
 
     if(!isset($form['time'])){
@@ -54,11 +54,8 @@ function createParcel($form){
         $result = curl_exec($ch);
         curl_close($ch);
         $parseResponse = json_decode($result, true);
-        if($parseResponse['status'] != 200){
-            $errors = $parseResponse['response'];
-        }
+        $errors = $parseResponse;
     }
-
     return $errors;
 }
 
@@ -76,6 +73,20 @@ function viewParcel($parcelId){
     $json = file_get_contents('http://127.0.0.1:8080/parcel/' . $parcelId);
     $parseResponse = json_decode($json, true);
     return isset($parseResponse['response']) ? $parseResponse['response'] : [];
+}
+
+function applyParcel($parcelId, $driverId){
+    // TODO: Update this URL
+    $ch = curl_init('http://127.0.0.1:8080/parcel/' . $parcelId);
+    $jsonData = ['driverId' =>  $driverId];
+    $jsonDataEncoded = json_encode($jsonData);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_exec($ch);
+    curl_close($ch);
 }
 
 
