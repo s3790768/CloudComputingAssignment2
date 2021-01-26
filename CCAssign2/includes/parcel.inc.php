@@ -89,6 +89,21 @@ function applyParcel($parcelId, $driverId){
     curl_close($ch);
 }
 
+function deleteParcel($parcelId, $userId){
+    // TODO: Update this URL
+    $ch = curl_init('http://127.0.0.1:8080/parcel/' . $parcelId);
+    $jsonData = ['userId' =>  $userId];
+    $jsonDataEncoded = json_encode($jsonData);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($ch);
+    curl_close($ch);
+    $parseResponse = json_decode($result, true);
+    return isset($parseResponse['status']) ? $parseResponse['status'] : [];
+}
 
 function console_log($output) {
     if (is_array($output))

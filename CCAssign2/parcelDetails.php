@@ -4,6 +4,15 @@ $parcel = viewParcel($parcelId);
 if(isset($_POST['bookParcel'])) {
     applyParcel($parcelId, $_POST['userId']);
 }
+if(isset($_POST['deleteParcel'])){
+    if(deleteParcel($parcelId, $_POST['userId']) != 200){
+        echo '<script>alert("There was an issue deleting")</script>';
+    } else {
+        header("Location: viewOrder.php");
+        exit();
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +54,7 @@ if(isset($_POST['bookParcel'])) {
                 <?php
                 $userId = $parcel['userId']; ?>
                     <button id="editButton" type="submit" class="btn btn-success">Edit</button>
-                    <button id="deleteButton" type="submit" class="btn btn-danger">Delete</button>
+                    <button id="deleteButton" name="deleteParcel" value="deleteParcel" type="submit" class="btn btn-danger">Delete</button>
                     <button id="reportButton" type="submit" class="btn btn-danger">Report</button>
                     <button id="bookParcel" name="bookParcel"  value="bookParcel" type="submit" class="btn btn-success">Apply</button>
                     <input type="hidden" name="userId" id="userId" value="" />
