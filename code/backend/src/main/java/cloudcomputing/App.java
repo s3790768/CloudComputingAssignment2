@@ -32,6 +32,7 @@ public class App {
         app.put("/parcel/:id", new EditParcel());
         // User
         app.get("/user/parcel/:id", new GetUserParcel());
+        app.post("/user/parcel/report/:id", new ReportController());
         app.post("/user/:id", new StoreUserDetailsController());
 
         app.post("/distance", new DistanceCalculator());

@@ -13,6 +13,16 @@ if(isset($_POST['deleteParcel'])){
     }
 }
 
+if(isset($_POST['reportParcel'])){
+    if(reportParcel($parcelId)['status'] == 200){
+        header("Location: viewOrder.php");
+        exit();
+    } else {
+        echo '<script>alert("There was an issue reporting this listing")</script>';
+    }
+
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +75,7 @@ if(isset($_POST['deleteParcel'])){
                 $userId = $parcel['userId']; ?>
                     <button id="editButton" type="submit" class="btn btn-success">Edit</button>
                     <button id="deleteButton" name="deleteParcel" value="deleteParcel" type="submit" class="btn btn-danger">Delete</button>
-                    <button id="reportButton" type="submit" class="btn btn-danger">Report</button>
+                    <button id="reportButton" name="reportParcel"  value="reportParcel" type="submit" class="btn btn-danger">Report</button>
                     <button id="bookParcel" name="bookParcel"  value="bookParcel" type="submit" class="btn btn-success">Apply</button>
                     <input type="hidden" name="userId" id="userId" value="" />
                     <script>
