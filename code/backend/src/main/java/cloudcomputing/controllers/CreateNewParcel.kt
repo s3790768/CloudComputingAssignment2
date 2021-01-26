@@ -25,7 +25,7 @@ class CreateNewParcel: Handler {
                 && bodyData.time.isNotEmpty() && bodyData.userId.isNotEmpty() && bodyData.description.isNotEmpty()){
                 val parcelRef = docRef.document()
                 parcelRef.create(Parcel(bodyData.userId, bodyData.pickupAddress, bodyData.dropOffAddress,
-                    bodyData.time, bodyData.description, false))
+                    bodyData.time, bodyData.description, false, receiverName = bodyData.receiverName))
                 chargeUser(context, bodyData.pickupAddress, bodyData.dropOffAddress)
             } else {
                 context.result(

@@ -5,6 +5,7 @@ import com.google.firebase.cloud.FirestoreClient
 import io.javalin.http.Context
 import io.javalin.http.Handler
 import cloudcomputing.models.Parcel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.GsonBuilder
 
 class GetParcel: Handler {
@@ -16,10 +17,12 @@ class GetParcel: Handler {
         val parcelDocument = docRef.document(parcelId).get().get()
         if(parcelDocument.exists()){
             val parcel = parcelDocument.toObject(Parcel::class.java)
+            val senderName = FirebaseAuth.getInstance().getUser(parcel?.userId).displayName
             val parcelModel = Parcel(parcel?.userId ?: "", parcel?.pickupAddress ?: "",
                 parcel?.dropOffAddress ?: "", parcel?.time ?: "",
                 parcel?.description ?: "", parcel?.isAccepted ?: false,
-                parcel?.driverId ?: "", parcel?.isDelivered ?: false)
+                parcel?.driverId ?: "", parcel?.isDelivered ?: false,
+                receiverName = parcel?.receiverName ?: "", senderName = senderName)
             context.result(
                 GsonBuilder()
                     .create()
