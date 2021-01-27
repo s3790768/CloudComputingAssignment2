@@ -29,11 +29,14 @@ public class App {
         app.get("/parcel", new GetAllParcel());
         // Intentional misspelling
         app.post("/parce/paid", new ParcelPaid());
+
+        app.get("/toDeliver/:userId", new ToBeDelivered());
+        app.get("/delivered/:parcelId", new DeliveredParcel());
+
         app.post("/refund/:id", new RefundParcel());
         // User
         app.get("/user/parcel/:userId", new GetUserParcel());
         app.post("/user/parcel/report/:id", new ReportController());
 
-        app.post("/distance", new DistanceCalculator());
     }
 }

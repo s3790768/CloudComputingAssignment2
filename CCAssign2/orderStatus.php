@@ -40,9 +40,9 @@
                     </td>
 
                     <td>
-                        <?php if($value['isDelivered']){
+                        <?php if($value['hasDelivered']){
                             echo 'Delivered';
-                        } else if($value['isAccepted']){
+                        } else if($value['hasAccepted']){
                             echo 'Accepted but not Delivered';
                         } else {
                             echo 'No driver has accepted this order yet...';

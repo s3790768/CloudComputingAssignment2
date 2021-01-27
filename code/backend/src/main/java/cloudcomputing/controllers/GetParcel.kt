@@ -20,8 +20,8 @@ class GetParcel: Handler {
             val senderName = FirebaseAuth.getInstance().getUser(parcel?.userId).displayName
             val parcelModel = Parcel(parcel?.userId ?: "", parcel?.pickupAddress ?: "",
                 parcel?.dropOffAddress ?: "", parcel?.time ?: "",
-                parcel?.description ?: "", parcel?.isAccepted ?: false,
-                parcel?.driverId ?: "", parcel?.isDelivered ?: false,
+                parcel?.description ?: "", parcel?.hasAccepted ?: false,
+                parcel?.driverId ?: "", parcel?.hasDelivered ?: false,
                 receiverName = parcel?.receiverName ?: "", senderName = senderName)
             context.result(
                 GsonBuilder()

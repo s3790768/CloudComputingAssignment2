@@ -27,7 +27,7 @@ class CollectParcel: Handler {
                 val driver = firebaseAuth.getUser(driverId)
                 val db = FirestoreClient.getFirestore()
                 val docRef = db.collection("jobs")
-                val hashMap: Map<String, Any> = hashMapOf("driverId" to driverId, "isAccepted" to true)
+                val hashMap: Map<String, Any> = hashMapOf("driverId" to driverId, "hasAccepted" to true)
                 docRef.document(parcelId).update(hashMap)
                 val parcelDetails = docRef.document(parcelId).get().get().toObject(Parcel::class.java)
                 val userId = parcelDetails?.userId

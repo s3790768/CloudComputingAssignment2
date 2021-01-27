@@ -60,7 +60,7 @@ form.addEventListener('submit', function(event) {
             } else {
                 const jsonObject =  JSON.parse(JSON.stringify(result));
                 // TODO: Replace this url
-                const backendUrl = "https://cloudcomputinga2.ts.r.appspot.com/parce/paid"
+                const backendUrl = "http://127.0.0.1:8080/parce/paid"
                 const data = 'parcelId=' +  parcelId + '&paymentIntent=' + jsonObject.paymentIntent.id;
                 xmlhttp = new XMLHttpRequest();
                 xmlhttp.open('POST', backendUrl, true);

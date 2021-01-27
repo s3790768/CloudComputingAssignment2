@@ -17,8 +17,8 @@ class ParcelPaid: Handler {
         val parcel = parcelDocument.toObject(Parcel::class.java)
         val parcelModel = Parcel(parcel?.userId ?: "", parcel?.pickupAddress ?: "",
             parcel?.dropOffAddress ?: "", parcel?.time ?: "",
-            parcel?.description ?: "", parcel?.isAccepted ?: false,
-            parcel?.driverId ?: "", parcel?.isDelivered ?: false,
+            parcel?.description ?: "", parcel?.hasAccepted ?: false,
+            parcel?.driverId ?: "", parcel?.hasDelivered ?: false,
             receiverName = parcel?.receiverName ?: "", senderName = parcel?.senderName ?: "",
             paymentIntent =  context.formParam("paymentIntent") ?: "")
         docRef.document(context.formParam("parcelId") ?: "").set(parcelModel)

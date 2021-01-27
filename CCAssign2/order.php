@@ -25,7 +25,7 @@ if(isset($_POST['createParcelForm'])) {
     <script src="scripts/cookies.js"></script>
 </head>
 <body>
-
+<?php require_once('includes/header.inc.php'); ?>
 <div class="container-fluid">
     <div class="row">
       <?php require_once('includes/navbar.inc.php'); ?>

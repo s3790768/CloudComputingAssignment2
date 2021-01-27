@@ -14,7 +14,7 @@ class GetAllParcel: Handler {
         val allParcel = arrayListOf<Parcel>()
         db.collection("jobs").listDocuments().forEach { docReference ->
             val parcel = docReference.get().get().toObject(Parcel::class.java)
-            if(parcel?.isAccepted != true || !parcel.isDelivered){
+            if(parcel?.hasAccepted != true || !parcel.hasDelivered){
                 allParcel.add(Parcel(parcel?.userId ?: "", parcel?.pickupAddress ?: "",
                     parcel?.dropOffAddress ?: "", parcel?.time ?: "", parcel?.description ?: "",
                     parcelId = docReference.get().get().id))

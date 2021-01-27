@@ -17,8 +17,8 @@ class ReportController: Handler {
         db.document(parcelId).set( Parcel(
             parcel?.userId ?: "", parcel?.pickupAddress ?: "",
             parcel?.dropOffAddress ?: "", parcel?.time ?: "",
-            parcel?.description ?: "", parcel?.isAccepted ?: false,
-            parcel?.driverId ?: "", parcel?.isDelivered ?: false,
+            parcel?.description ?: "", parcel?.hasAccepted ?: false,
+            parcel?.driverId ?: "", parcel?.hasDelivered ?: false,
             parcelId, parcel?.receiverName ?: "", parcel?.senderName ?: "",
             true
         ))
