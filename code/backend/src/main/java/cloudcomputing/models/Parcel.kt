@@ -12,5 +12,6 @@ data class Parcel(
     val parcelId: String = "",
     val receiverName: String = "",
     val senderName: String = "",
-    val isReported: Boolean = false
+    val isReported: Boolean = false,
+    val paymentIntent: String = ""
 )

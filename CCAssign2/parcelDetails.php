@@ -20,9 +20,16 @@ if(isset($_POST['reportParcel'])){
     } else {
         echo '<script>alert("There was an issue reporting this listing")</script>';
     }
-
 }
 
+if(isset($_POST['refundParcel'])) {
+    if(refundParcel($parcelId)['status'] == 200) {
+        header("Location: viewOrder.php");
+        exit();
+    } else {
+        echo '<script>alert("There was an issue refunding")</script>';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,6 +82,7 @@ if(isset($_POST['reportParcel'])){
                 $userId = $parcel['userId']; ?>
                     <button id="reportButton" name="reportParcel"  value="reportParcel" type="submit" class="btn btn-danger">Report</button>
                     <button id="bookParcel" name="bookParcel"  value="bookParcel" type="submit" class="btn btn-success">Apply</button>
+                    <button id="refundParcel" name="refundParcel"  value="refundParcel" type="submit" class="btn btn-success">Refund</button>
                     <input type="hidden" name="userId" id="userId" value="" />
                     <script>
                         document.getElementById('userId').value = getCookie('userId');
@@ -83,6 +91,8 @@ if(isset($_POST['reportParcel'])){
                             // Only show report button if user didn't post this
                             document.getElementById("reportButton").style.display = "none"
                             document.getElementById("bookParcel").style.display = "none"
+                        } else {
+                            document.getElementById("refundParcel").style.display = "none"
                         }
                     </script>
             </main>

@@ -124,6 +124,19 @@ function reportParcel($parcelId){
     return json_decode($parseResponse, true);
 }
 
+
+function refundParcel($parcelId){
+    $ch = curl_init('http://127.0.0.1:8080/refund/' . $parcelId);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($ch);
+    curl_close($ch);
+    $parseResponse = json_decode($result, true);
+    return json_decode($parseResponse, true);
+}
+
 function console_log($output) {
     if (is_array($output))
         $output = implode(',', $output);

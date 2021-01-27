@@ -6,6 +6,7 @@ import com.google.firebase.cloud.FirestoreClient
 import io.javalin.http.Context
 import io.javalin.http.Handler
 import cloudcomputing.models.Parcel
+import cloudcomputing.models.PaymentData
 import cloudcomputing.utils.Distance
 import com.google.gson.GsonBuilder
 import com.stripe.model.PaymentIntent
@@ -26,7 +27,7 @@ class CreateNewParcel: Handler {
                 val parcelRef = docRef.document()
                 parcelRef.create(Parcel(bodyData.userId, bodyData.pickupAddress, bodyData.dropOffAddress,
                     bodyData.time, bodyData.description, false, receiverName = bodyData.receiverName))
-                chargeUser(context, bodyData.pickupAddress, bodyData.dropOffAddress)
+                chargeUser(context, bodyData.pickupAddress, bodyData.dropOffAddress, parcelRef.get().get().id)
             } else {
                 context.result(
                     GsonBuilder()
@@ -42,8 +43,8 @@ class CreateNewParcel: Handler {
         }
     }
 
-    private fun chargeUser(context: Context,
-                           firstAddress: String, secondAddress: String) {
+    private fun chargeUser(context: Context, firstAddress: String,
+                           secondAddress: String, parcelId: String) {
         try {
             val distance = Distance().calculate(firstAddress, secondAddress)
             val price = distance / 100
@@ -57,7 +58,7 @@ class CreateNewParcel: Handler {
             context.result(
                 GsonBuilder()
                     .create()
-                    .toJson(HttpResponse(200, intent.clientSecret)))
+                    .toJson(HttpResponse(200, PaymentData(parcelId, intent.clientSecret))))
         } catch (exception: Exception){
             exception.printStackTrace()
             context.result(

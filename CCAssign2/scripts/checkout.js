@@ -48,7 +48,7 @@ form.addEventListener('submit', function(event) {
     var url_string = window.location.href
     var url = new URL(url_string);
     var secret = url.searchParams.get("secret");
-    console.log(secret)
+    var parcelId = url.searchParams.get("parcelId");
     stripe.confirmCardPayment(secret, {
             payment_method: {
                 card: card
@@ -56,17 +56,17 @@ form.addEventListener('submit', function(event) {
         })
         .then(function(result) {
             if (result.error) {
-                showError(result.error.message);
+                alert(result.error.message);
             } else {
+                const jsonObject =  JSON.parse(JSON.stringify(result));
+                // TODO: Replace this url
+                const backendUrl = "http://127.0.0.1:8080/parce/paid"
+                const data = 'parcelId=' +  parcelId + '&paymentIntent=' + jsonObject.paymentIntent.id;
+                xmlhttp = new XMLHttpRequest();
+                xmlhttp.open('POST', backendUrl, true);
+                xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xmlhttp.send(data);
                 window.location.replace("viewOrder.php");
             }
         });
 });
-
-var showError = function(errorMsgText) {
-    var errorMsg = document.querySelector(".sr-field-error");
-    errorMsg.textContent = errorMsgText;
-    setTimeout(function() {
-        errorMsg.textContent = "";
-    }, 4000);
-};

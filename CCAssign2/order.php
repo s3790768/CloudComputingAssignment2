@@ -4,11 +4,13 @@
 $errors = '';
 if(isset($_POST['createParcelForm'])) {
     $errors = createParcel($_POST);
-    console_log($errors);
     if($errors['status'] != 200){
         echo '<script type="text/javascript">alert("'.$errors['response'].'");</script>';
     } else {
-        header("Location: checkout.php?secret={$errors['response']}");
+        foreach($errors as $value){
+            // Questionable looking code. Life is not perfect.
+            header("Location: checkout.php?secret={$value['paymentIntent']}&parcelId={$value['parcelId']}");
+        }
         exit();
     }
 }

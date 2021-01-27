@@ -27,7 +27,9 @@ public class App {
         app.post("/parcel/:id", new CollectParcel());
         app.post("/parcel", new CreateNewParcel());
         app.get("/parcel", new GetAllParcel());
-
+        // Intentional misspelling
+        app.post("/parce/paid", new ParcelPaid());
+        app.post("/refund/:id", new RefundParcel());
         // User
         app.get("/user/parcel/:userId", new GetUserParcel());
         app.post("/user/parcel/report/:id", new ReportController());
