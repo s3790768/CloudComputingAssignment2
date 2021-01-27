@@ -1,5 +1,6 @@
 package cloudcomputing.utils;
 
+import cloudcomputing.Constants;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -15,14 +16,13 @@ public class Google {
         GoogleCredentials credentials = GoogleCredentials.fromStream(inputStream);
         FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(credentials)
-                .setStorageBucket("cloudcomputinga2-74277.appspot.com")
                 .build();
         FirebaseApp.initializeApp(options);
     }
 
     public static GeoApiContext initGMap(){
         return new GeoApiContext.Builder()
-                .apiKey("AIzaSyD8PN2_Kv-lRqf0Gy4A9EJuJ9sl5vAXeDw")
+                .apiKey(Constants.GOOGLE_MAPS_KEY)
                 .build();
     }
 
