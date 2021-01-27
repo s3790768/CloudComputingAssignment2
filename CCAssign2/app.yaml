@@ -1,5 +1,13 @@
-runtime: php72
+runtime: php74
 
 handlers:
-- url: /.*
-  script: auto
+- url: /img
+  static_dir: img
+
+- url: /styles
+  static_dir: styles
+
+- url: /scripts
+  static_dir: scripts
+
+entrypoint: serve index.php

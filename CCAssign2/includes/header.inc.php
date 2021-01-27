@@ -1,6 +1,5 @@
 <script type="text/javascript" src="scripts/cookies.js"></script>
 <script type="text/javascript" src="scripts/authCheck.js"></script>
-<script src="https://js.stripe.com/v3/"></script>
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
         <span data-feather="box"></span>

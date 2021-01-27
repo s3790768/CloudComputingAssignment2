@@ -17,7 +17,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
         integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
         crossorigin="anonymous"></script>
-<script src="dashboard.js"></script>
 
 <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-auth.js"></script>
@@ -27,4 +26,4 @@
 
 <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
 
-<link href="style.css" rel="stylesheet">
+<link href="styles/style.css" rel="stylesheet">

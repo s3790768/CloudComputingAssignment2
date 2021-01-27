@@ -5,6 +5,8 @@
     <?php require_once('includes/head.inc.php'); ?>
     <script src="scripts/firebaseInit.js"></script>
     <script src="scripts/auth.js"></script>
+	<script type="text/javascript" src="scripts/cookies.js"></script>
+	<script type="text/javascript" src="scripts/authCheck.js"></script>
 </head>
 <body>
 
