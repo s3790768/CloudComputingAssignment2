@@ -30,7 +30,7 @@ function createParcel($form){
     if (empty($errors)){
         // For debugging locally -> http://127.0.0.1:8080/parcel
         // For production -> https://cloudcomputinga2.ts.r.appspot.com/parcel
-        $ch = curl_init('http://127.0.0.1:8080/parcel');
+        $ch = curl_init('https://cloudcomputinga2.ts.r.appspot.com/parcel');
 
         $jsonData = array(
             'pickupAddress' =>  $form['sourceAddress'],
@@ -56,21 +56,20 @@ function createParcel($form){
 }
 
 function viewParcels(){
-    $json = file_get_contents('http://127.0.0.1:8080/parcel');
+    $json = file_get_contents('https://cloudcomputinga2.ts.r.appspot.com/parcel');
     $parseResponse = json_decode($json, true);
     return isset($parseResponse['response']) ? $parseResponse['response'] : [];
 }
 
 function viewParcel($parcelId){
-    // TODO: Change URL
-    $json = file_get_contents('http://127.0.0.1:8080/parcel/' . $parcelId);
+    $json = file_get_contents('https://cloudcomputinga2.ts.r.appspot.com/parcel/' . $parcelId);
     $parseResponse = json_decode($json, true);
 
     return isset($parseResponse['response']) ? $parseResponse['response'] : [];
 }
 
 function applyParcel($parcelId, $driverId){
-    $ch = curl_init('http://127.0.0.1:8080/parcel/' . $parcelId);
+    $ch = curl_init('https://cloudcomputinga2.ts.r.appspot.com/parcel/' . $parcelId);
     $jsonData = ['driverId' =>  $driverId];
     $jsonDataEncoded = json_encode($jsonData);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
@@ -84,7 +83,7 @@ function applyParcel($parcelId, $driverId){
 }
 
 function deleteParcel($parcelId, $userId){
-    $ch = curl_init('http://127.0.0.1:8080/parcel/' . $parcelId);
+    $ch = curl_init('https://cloudcomputinga2.ts.r.appspot.com/parcel/' . $parcelId);
     $jsonData = ['userId' =>  $userId];
     $jsonDataEncoded = json_encode($jsonData);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
@@ -98,13 +97,13 @@ function deleteParcel($parcelId, $userId){
 }
 
 function getUserParcel($userId){
-    $json = file_get_contents('http://127.0.0.1:8080/user/parcel/' . $userId);
+    $json = file_get_contents('https://cloudcomputinga2.ts.r.appspot.com/user/parcel/' . $userId);
     $parseResponse = json_decode($json, true);
     return isset($parseResponse['response']) ? $parseResponse['response'] : [];
 }
 
 function reportParcel($parcelId){
-    $ch = curl_init('http://127.0.0.1:8080/user/parcel/report/' . $parcelId);
+    $ch = curl_init('https://cloudcomputinga2.ts.r.appspot.com/user/parcel/report/' . $parcelId);
     $jsonData = ['userId' =>  ''];
     $jsonDataEncoded = json_encode($jsonData);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
@@ -119,21 +118,19 @@ function reportParcel($parcelId){
 }
 
 function getToBeDeliveredParcel($userId){
-    // TODO: Update this URL
-    $json = file_get_contents('http://127.0.0.1:8080/toDeliver/' . $userId);
+    $json = file_get_contents('https://cloudcomputinga2.ts.r.appspot.com/toDeliver/' . $userId);
     $parseResponse = json_decode($json, true);
     return isset($parseResponse['response']) ? $parseResponse['response'] : [];
 }
 
 
 function deliveredParcel($parcelId){
-    // TODO: Update this URL
-    file_get_contents('http://127.0.0.1:8080/delivered/' . $parcelId);
+    file_get_contents('https://cloudcomputinga2.ts.r.appspot.com/delivered/' . $parcelId);
     return true;
 }
 
 function refundParcel($parcelId){
-    $ch = curl_init('http://127.0.0.1:8080/refund/' . $parcelId);
+    $ch = curl_init('https://cloudcomputinga2.ts.r.appspot.com/refund/' . $parcelId);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
     curl_setopt($ch, CURLOPT_HEADER, false);
     curl_setopt($ch, CURLOPT_POST, true);
