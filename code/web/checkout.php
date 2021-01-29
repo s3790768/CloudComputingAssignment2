@@ -57,7 +57,7 @@
         var url_string = window.location.href
         var url = new URL(url_string);
         var price = url.searchParams.get("price");
-        document.getElementById("price").textContent = 'Price: $' + price
+        document.getElementById("price").textContent = 'Price: $' + (price / 100).toFixed(2)
     </script>
 </body>
 </html>

@@ -21,7 +21,7 @@ class CreateNewParcel: Handler {
         val bodyData = GsonBuilder().create().fromJson(context.body(), Parcel::class.java)
         val firebaseAuth = FirebaseAuth.getInstance()
         try {
-            firebaseAuth.getUser(bodyData.userId)
+            val user = firebaseAuth.getUser(bodyData.userId)
             if(bodyData.pickupAddress.isNotEmpty() && bodyData.dropOffAddress.isNotEmpty()
                 && bodyData.time.isNotEmpty() && bodyData.userId.isNotEmpty() && bodyData.description.isNotEmpty()){
                 val parcelRef = docRef.document()
@@ -29,7 +29,8 @@ class CreateNewParcel: Handler {
                     bodyData.pickupAddress, bodyData.dropOffAddress,
                     bodyData.time, bodyData.description,
                     hasAccepted = false, receiverName = bodyData.receiverName, parcelId = parcelRef.get().get().id))
-                chargeUser(context, bodyData.pickupAddress, bodyData.dropOffAddress, parcelRef.get().get().id)
+                chargeUser(context, bodyData.pickupAddress, bodyData.dropOffAddress,
+                    parcelRef.get().get().id, user.email)
             } else {
                 context.result(
                     GsonBuilder()
@@ -46,11 +47,11 @@ class CreateNewParcel: Handler {
     }
 
     private fun chargeUser(context: Context, firstAddress: String,
-                           secondAddress: String, parcelId: String) {
+                           secondAddress: String, parcelId: String, email: String) {
         try {
             val distance = Distance().calculate(firstAddress, secondAddress)
             val price = if(distance == 0L){
-                1
+                100
             } else {
                 distance / 100
             }
@@ -58,6 +59,7 @@ class CreateNewParcel: Handler {
                 PaymentIntentCreateParams.builder()
                     .setCurrency("aud")
                     .setAmount(price)
+                    .setReceiptEmail(email)
                     .putMetadata("integration_check", "accept_a_payment")
                     .build()
             val intent = PaymentIntent.create(params)
