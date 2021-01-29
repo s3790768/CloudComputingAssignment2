@@ -49,7 +49,11 @@ class CreateNewParcel: Handler {
                            secondAddress: String, parcelId: String) {
         try {
             val distance = Distance().calculate(firstAddress, secondAddress)
-            val price = distance / 100
+            val price = if(distance == 0L){
+                1
+            } else {
+                distance / 100
+            }
             val params =
                 PaymentIntentCreateParams.builder()
                     .setCurrency("aud")
@@ -60,13 +64,13 @@ class CreateNewParcel: Handler {
             context.result(
                 GsonBuilder()
                     .create()
-                    .toJson(HttpResponse(200, PaymentData(parcelId, intent.clientSecret))))
+                    .toJson(HttpResponse(200, PaymentData(price.toString(), parcelId, intent.clientSecret))))
         } catch (exception: Exception){
             exception.printStackTrace()
             context.result(
                 GsonBuilder()
                     .create()
-                    .toJson(HttpResponse(300, "There was an error processing your information")))
+                    .toJson(HttpResponse(300, "It appears that your address is invalid")))
         }
     }
 }
