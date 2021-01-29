@@ -6,14 +6,6 @@ if(isset($_POST['bookParcel'])) {
         echo "<script>window.location.href='parcelDetails.php?id=$parcelId';</script>";
     }
 }
-if(isset($_POST['deleteParcel'])){
-    if(deleteParcel($parcelId, $_POST['userId']) != 200){
-        echo '<script>alert("There was an issue deleting")</script>';
-    } else {
-        echo "<script>window.location.href='viewOrder.php';</script>";
-        exit();
-    }
-}
 
 if(isset($_POST['reportParcel'])){
     if(reportParcel($parcelId)['status'] == 200){
@@ -25,12 +17,7 @@ if(isset($_POST['reportParcel'])){
 }
 
 if(isset($_POST['refundParcel'])) {
-    if(refundParcel($parcelId)['status'] == 200) {
-        echo "<script>window.location.href='viewOrder.php';</script>";
-        exit();
-    } else {
-        echo '<script>alert("There was an issue refunding")</script>';
-    }
+    refundParcel($parcelId);
 }
 
 if(isset($_POST['deliveredParcel'])) {
@@ -44,7 +31,6 @@ if(isset($_POST['deliveredParcel'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="styles/category.css">
     <script src="scripts/cookies.js"></script>
     <?php require_once('includes/head.inc.php'); ?>
 

@@ -42,7 +42,7 @@ object App {
         app.post("/parce/paid", ParcelPaid())
         app.get("/toDeliver/:userId", ToBeDelivered())
         app.get("/delivered/:parcelId", DeliveredParcel())
-        app.post("/refund/:id", RefundParcel())
+        app.get("/parcel-refund/:id", RefundParcel())
         // User
         app.get("/user/parcel/:userId", GetUserParcel())
         app.post("/user/parcel/report/:id", ReportController())

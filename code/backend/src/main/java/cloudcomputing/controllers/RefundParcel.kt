@@ -22,6 +22,6 @@ class RefundParcel: Handler {
             RefundCreateParams.builder()
             .setPaymentIntent(parcelDocument?.paymentIntent)
             .build())
-        context.result(GsonBuilder().create().toJson(HttpResponse(200, "")))
+        context.result(GsonBuilder().create().toJson(HttpResponse(200, "Parcel refunded!")))
     }
 }

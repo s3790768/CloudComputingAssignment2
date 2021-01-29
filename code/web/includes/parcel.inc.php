@@ -82,20 +82,6 @@ function applyParcel($parcelId, $driverId){
     return true;
 }
 
-function deleteParcel($parcelId, $userId){
-    $ch = curl_init('https://cloudcomputinga2.ts.r.appspot.com/parcel/' . $parcelId);
-    $jsonData = ['userId' =>  $userId];
-    $jsonDataEncoded = json_encode($jsonData);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-    curl_setopt($ch, CURLOPT_HEADER, false);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $result = curl_exec($ch);
-    curl_close($ch);
-    $parseResponse = json_decode($result, true);
-    return isset($parseResponse['status']) ? $parseResponse['status'] : [];
-}
-
 function getUserParcel($userId){
     $json = file_get_contents('https://cloudcomputinga2.ts.r.appspot.com/user/parcel/' . $userId);
     $parseResponse = json_decode($json, true);
@@ -130,13 +116,6 @@ function deliveredParcel($parcelId){
 }
 
 function refundParcel($parcelId){
-    $ch = curl_init('https://cloudcomputinga2.ts.r.appspot.com/refund/' . $parcelId);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-    curl_setopt($ch, CURLOPT_HEADER, false);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $result = curl_exec($ch);
-    curl_close($ch);
-    $parseResponse = json_decode($result, true);
-    return json_decode($parseResponse, true);
+    file_get_contents('https://cloudcomputinga2.ts.r.appspot.com/parcel-refund/' . $parcelId);
+    echo "<script>window.location.href='viewOrder.php';</script>";
 }
