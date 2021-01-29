@@ -10,7 +10,7 @@ if(isset($_POST['createParcelForm'])) {
         foreach($errors as $value){
             // Questionable looking code. Life is not perfect.
             if($value['paymentIntent'] != null){
-                echo "<script>window.location.href='checkout.php?secret={$value['paymentIntent']}&parcelId={$value['parcelId']}';</script>";
+                echo "<script>window.location.href='checkout.php?secret={$value['paymentIntent']}&parcelId={$value['parcelId']}&price={$value['price']}';</script>";
             }
         }
         exit();
@@ -47,14 +47,14 @@ if(isset($_POST['createParcelForm'])) {
                 <label for="sourceAddress">Address</label>
                 <input type="text" class="form-control"
                        id="sourceAddress" name="sourceAddress"
-                       placeholder="1234 Main St">
+                       placeholder="1234 Main St" required>
                 <label for="description">Description</label>
                 <input type="text" class="form-control" id="description"
                        name="description"
-                       placeholder="Description">
+                       placeholder="Description" required>
                 <label for="time">Time</label>
                 <input type="datetime-local" class="form-control"
-                       id="time" name="time" placeholder="Time">
+                       id="time" name="time" placeholder="Time" required>
             </div>
 
             <!--Border-->
@@ -64,13 +64,13 @@ if(isset($_POST['createParcelForm'])) {
             <div class="form-group col-md-6">
                 <label for="Receiver nav-item">Receiver Name </label>
                 <input type="text" class="form-control" id="receiverName"
-                       name="receiverName" placeholder="Receiver Name">
+                       name="receiverName" placeholder="Receiver Name" required>
             </div>
             <div class="form-group">
                 <label for="destinationAddress">Destination Address</label>
                 <input type="text" class="form-control" id="destinationAddress"
                        name="destinationAddress"
-                       placeholder="1234 Main St">
+                       placeholder="1234 Main St" required>
             </div>
               <div class="form-row">
                   <div class="col-sm-10">
