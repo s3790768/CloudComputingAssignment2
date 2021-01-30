@@ -87,7 +87,6 @@ if(isset($_POST['deliveredParcel'])) {
                         const userId = '<?php echo $parcel['userId'] ;?>';
                         const driverId = '<?php echo $parcel['driverId'] ;?>';
                         const isAccepted = '<?php echo $parcel['hasAccepted'] ;?>';
-
                         if(userId == getCookie("userId")){
                             // Only show report button if user didn't post this
                             document.getElementById("reportButton").style.display = "none"

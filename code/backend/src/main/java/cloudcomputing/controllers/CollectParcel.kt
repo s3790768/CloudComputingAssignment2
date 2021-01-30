@@ -3,17 +3,13 @@ package cloudcomputing.controllers
 import cloudcomputing.Constants
 import cloudcomputing.models.HttpResponse
 import cloudcomputing.models.Parcel
-import cloudcomputing.utils.Distance
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.cloud.FirestoreClient
 import com.google.gson.GsonBuilder
 import com.sendgrid.*
-import com.stripe.model.*
-import com.stripe.param.*
 import io.javalin.http.Context
 import io.javalin.http.Handler
 import java.lang.Exception
-import java.io.IOException
 
 
 class CollectParcel: Handler {
@@ -35,7 +31,6 @@ class CollectParcel: Handler {
                 val user = firebaseAuth.getUser(userId)
                 sendMail(context, user.email, driver.displayName)
             } catch (exception: Exception){
-                exception.printStackTrace()
                 context.result(
                     GsonBuilder()
                         .create()
@@ -62,7 +57,7 @@ class CollectParcel: Handler {
             request.endpoint = "mail/send"
             request.body = mail.build()
             sendGrid.api(request)
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             context.result(
                 GsonBuilder()
                     .create()

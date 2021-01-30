@@ -38,7 +38,6 @@ class CreateNewParcel: Handler {
                         .toJson(HttpResponse(401, "There are some missing data")))
             }
         } catch (exception: Exception){
-            exception.printStackTrace()
             context.result(
                 GsonBuilder()
                     .create()
@@ -68,7 +67,6 @@ class CreateNewParcel: Handler {
                     .create()
                     .toJson(HttpResponse(200, PaymentData(price.toString(), parcelId, intent.clientSecret))))
         } catch (exception: Exception){
-            exception.printStackTrace()
             context.result(
                 GsonBuilder()
                     .create()

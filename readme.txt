@@ -9,3 +9,6 @@ Only the backend requires compilation to run.
 
 - The frontend requires a PHP runtime. 
 - The backend is a jar file in deploy directory and requires a JVM environment
+
+
+Video URL: https://youtu.be/PHuBXZNL2lI

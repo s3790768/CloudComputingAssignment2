@@ -10,7 +10,7 @@
     </button>
     <ul class="navbar-nav px-5">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">Sign out</a>
+            <a class="nav-link" href="login.php">Sign out</a>
         </li>
     </ul>
 </header>
