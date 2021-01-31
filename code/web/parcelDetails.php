@@ -33,11 +33,11 @@ if(isset($_POST['deliveredParcel'])) {
 <head>
     <?php require_once('includes/head.inc.php'); ?>
     <script src="scripts/cookies.js"></script>
+    <script src="scripts/firebaseInit.js"></script>
+    <script src="scripts/file.js"></script>
 </head>
 <body>
     <?php require_once('includes/header.inc.php'); ?>
-    <script src="scripts/firebaseInit.js"></script>
-    <script src="scripts/file.js"></script>
     <div class="container-fluid">
         <div class="row">
             <?php require_once('includes/navbar.inc.php'); ?>
