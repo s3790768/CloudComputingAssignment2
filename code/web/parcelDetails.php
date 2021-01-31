@@ -31,16 +31,17 @@ if(isset($_POST['deliveredParcel'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="scripts/cookies.js"></script>
     <?php require_once('includes/head.inc.php'); ?>
-
+    <script src="scripts/cookies.js"></script>
 </head>
 <body>
     <?php require_once('includes/header.inc.php'); ?>
+    <script src="scripts/firebaseInit.js"></script>
+    <script src="scripts/file.js"></script>
     <div class="container-fluid">
         <div class="row">
             <?php require_once('includes/navbar.inc.php'); ?>
-            <form method="post">
+            <form enctype="multipart/form-data" method="post">
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <table class="table table-striped table-hover" id="tableLog">
                     <tr>
@@ -76,33 +77,61 @@ if(isset($_POST['deliveredParcel'])) {
                 </table>
                 <?php
                 $userId = $parcel['userId']; ?>
-                    <button id="reportButton" name="reportParcel"  value="reportParcel" type="submit" class="btn btn-danger">Report</button>
-                    <button id="bookParcel" name="bookParcel"  value="bookParcel" type="submit" class="btn btn-success">Apply</button>
-                    <button id="refundParcel" name="refundParcel"  value="refundParcel" type="submit" class="btn btn-success">Refund</button>
-                    <button id="deliveredParcel" name="deliveredParcel" style="display: none" value="deliveredParcel" type="submit" class="btn btn-success">Delivered</button>
 
-                    <input type="hidden" name="userId" id="userId" value="" />
-                    <script>
-                        document.getElementById('userId').value = getCookie('userId');
-                        const userId = '<?php echo $parcel['userId'] ;?>';
-                        const driverId = '<?php echo $parcel['driverId'] ;?>';
-                        const isAccepted = '<?php echo $parcel['hasAccepted'] ;?>';
-                        if(userId == getCookie("userId")){
-                            // Only show report button if user didn't post this
-                            document.getElementById("reportButton").style.display = "none"
-                            document.getElementById("bookParcel").style.display = "none"
-                        } else {
-                            document.getElementById("refundParcel").style.display = "none"
-                        }
+                <img id="parcelImage" width="30%" height="30%">
 
-                        if(isAccepted == true){
-                            document.getElementById("bookParcel").style.display = "none"
-                        }
+                <div>
+                    <div id="fileText"
+                         style="display: none">Please upload 1 picture as proof of delivery</div>
+                    <div>
+                        <input type="file" id="parcelDeliveredImage"
+                               style="display: none"
+                               name="parcelDeliveredImage" accept=".jpg, .jpeg, .png">
+                    </div>
+                </div>
 
-                        if(driverId == getCookie("userId")){
-                            document.getElementById("deliveredParcel").style.display = "initial"
-                        }
-                    </script>
+                <button id="reportButton" name="reportParcel"  value="reportParcel" type="submit" class="btn btn-danger">Report</button>
+                <button id="bookParcel" name="bookParcel"  value="bookParcel" type="submit" class="btn btn-success">Apply</button>
+                <button id="refundParcel" name="refundParcel"  value="refundParcel" type="submit" class="btn btn-success">Refund</button>
+
+
+                <button id="deliveredParcel"
+                        name="deliveredParcel" style="display: none"
+                        value="deliveredParcel"
+                        onclick="upload()"
+                        class="btn btn-success">Delivered</button>
+
+                <input type="hidden" name="userId" id="userId" value="" />
+                <script>
+                    document.getElementById('userId').value = getCookie('userId');
+                    const userId = '<?php echo $parcel['userId'] ;?>';
+                    const driverId = '<?php echo $parcel['driverId'] ;?>';
+                    const isAccepted = '<?php echo $parcel['hasAccepted'] ;?>';
+                    const hasDelivered = '<?php echo $parcel['hasDelivered'] ;?>';
+
+                    if(hasDelivered == true){
+                        document.getElementById("refundParcel").style.display = "none"
+                    }
+
+                    if(userId == getCookie("userId")){
+                        // Only show report button if user didn't post this
+                        document.getElementById("reportButton").style.display = "none"
+                        document.getElementById("bookParcel").style.display = "none"
+                        download()
+                    } else {
+                        document.getElementById("refundParcel").style.display = "none"
+                    }
+
+                    if(isAccepted == true){
+                        document.getElementById("bookParcel").style.display = "none"
+                    }
+
+                    if(driverId == getCookie("userId")){
+                        document.getElementById("deliveredParcel").style.display = "initial"
+                        document.getElementById("parcelDeliveredImage").style.display = "initial"
+                        document.getElementById("fileText").style.display = "initial"
+                    }
+                </script>
             </main>
             </form>
         </div>
